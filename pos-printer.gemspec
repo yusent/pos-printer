@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'pos-printer'
-  s.version     = '0.0.0'
+  s.version     = '0.0.1'
   s.license     = 'MIT'
   s.summary     = 'Library for printing using ESC/POS (thermal) printers.'
   s.description = 'Library for printing using ESC/POS (thermal) printers.'
