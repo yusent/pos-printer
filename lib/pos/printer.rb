@@ -2,6 +2,8 @@ require 'open3'
 
 module POS
   class Printer
+    attr_reader :name
+
     def initialize(name)
       @name = name
       @commands = '\e@' # This is ESC/POS initialize command.
