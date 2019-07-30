@@ -20,54 +20,59 @@ module POS
     # ESC/POS commands
 
     def align_center
-      @commands << '\ea\1'
+      add_command '\ea\1'
     end
 
     def align_left
-      @commands << '\ea\0'
+      add_command '\ea\0'
     end
 
     def align_right
-      @commands << '\ea\2'
+      add_command '\ea\2'
     end
 
     def big_font
-      @commands << '\eM\0'
+      add_command '\eM\0'
     end
 
     def cut
-      @commands << '\em'
+      add_command '\em'
     end
 
     def double_size
-      @commands << '\x1d!\x11'
+      add_command '\x1d!\x11'
     end
 
     def line_feed
-      @commands << '\n'
+      add_command '\n'
     end
 
     def normal_size
-      @commands << '\x1d!\0'
+      add_command '\x1d!\0'
     end
 
     def open_drawer
-      @commands << '\x1bp\x00\x19\xff\x1bp\x01\x19\xff'
+      add_command '\x1bp\x00\x19\xff\x1bp\x01\x19\xff'
     end
 
     def print_logo
-      @commands << '\x1cp\1\0'
+      add_command '\x1cp\1\0'
     end
 
     def small_font
-      @commands << '\eM\1'
+      add_command '\eM\1'
     end
 
     def text(str)
-      @commands << str
+      add_command str
     end
 
     private
+
+    def add_command(command)
+      @commands << command
+      return
+    end
 
     def send_to_printer
       Open3.capture3('lp', '-d', @name, '-o', 'raw', stdin_data: commands)
