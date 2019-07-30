@@ -1,0 +1,5 @@
+language: ruby
+
+sudo: false
+script:
+  - rake test
