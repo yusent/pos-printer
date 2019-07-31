@@ -64,6 +64,21 @@ module POS
       add_command '\x1cp\1\0'
     end
 
+    def qr_code(str)
+      qr_size = 4
+      s = str.size + 3
+      lsb = s % 256
+      msb = s / 256
+
+      add_command '\x1B\x61\x01'
+      add_command "\\x1D\\x28\\x6B\\x03\\x00\\x31\\x43\\x#{'%02x' % qr_size}"
+      add_command '\x1D\x28\x6B\x03\x00\x31\x45\x33'
+      add_command "\\x1D\\x28\\x6B\\x#{'%02x' % lsb}"
+      add_command "\\x#{'%02x' % msb}\\x31\\x50\\x30"
+      add_command str
+      add_command '\x1D\x28\x6B\x03\x00\x31\x51\x30'
+    end
+
     def small_font
       add_command '\eM\1'
     end

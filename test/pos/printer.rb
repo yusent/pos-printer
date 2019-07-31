@@ -69,6 +69,16 @@ class TestPrinter < Test::Unit::TestCase
     assert_equal(@printer.commands, '\e@\x1cp\1\0')
   end
 
+  def test_qr_code
+    @printer.qr_code 'test'
+    assert_equal(@printer.commands, '\e@\x1B\x61\x01'\
+      '\x1D\x28\x6B\x03\x00\x31\x43\x04'\
+      '\x1D\x28\x6B\x03\x00\x31\x45\x33'\
+      '\x1D\x28\x6B\x07\x00\x31\x50\x30'\
+      'test'\
+      '\x1D\x28\x6B\x03\x00\x31\x51\x30')
+  end
+
   def test_small_font
     @printer.small_font
     assert_equal(@printer.commands, '\e@\eM\1')
