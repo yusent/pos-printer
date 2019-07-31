@@ -1,15 +1,22 @@
 require 'test/unit'
 require_relative '../../lib/pos/printer'
 
+class POS::Printer
+  attr_reader :name, :lp_options
+end
+
 class TestPrinter < Test::Unit::TestCase
   def setup
     @printer_name = 'test'
-    @printer = POS::Printer.new(@printer_name)
+    @lp_options = ['-h', 'somehost:port']
+    @printer = POS::Printer.new(@printer_name, @lp_options)
   end
 
   def test_initialize
     assert_equal(@printer.name, @printer_name)
     assert_equal(@printer.commands, '\e@')
+    assert_equal(@printer.lp_options,
+      ['-d', @printer_name, '-o', 'raw', *@lp_options])
   end
 
   def test_align_center

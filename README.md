@@ -37,6 +37,16 @@ POS::Printer.print('my-printer-name-on-cups') do |p|
 end
 ```
 
+You may also specify extra options to pass to `lp`:
+
+```ruby
+require 'pos-printer'
+
+POS::Printer.print('my-printer-name-on-cups', lp_options: ['-h', 'somehost:port']) do |p|
+  # Your printing code
+end
+```
+
 More Information
 ----------------
 

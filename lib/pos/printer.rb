@@ -2,17 +2,16 @@ require 'open3'
 
 module POS
   class Printer
-    attr_reader :name
-
-    def self.print(printer_name)
-      printer = self.new(printer_name)
+    def self.print(printer_name, lp_options: [])
+      printer = self.new(printer_name, lp_options)
       yield printer
       printer.print
     end
 
-    def initialize(name)
+    def initialize(name, lp_options = [])
       @name = name
       @commands = '\e@' # This is ESC/POS initialize command.
+      @lp_options = ['-d', name, '-o', 'raw', *lp_options]
     end
 
     def commands
@@ -20,7 +19,7 @@ module POS
     end
 
     def print
-      Open3.capture3('lp', '-d', @name, '-o', 'raw', stdin_data: commands)
+      Open3.capture3('lp', *@lp_options, stdin_data: commands)
     end
 
     # ESC/POS commands
