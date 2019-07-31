@@ -4,6 +4,12 @@ module POS
   class Printer
     attr_reader :name
 
+    def self.print(printer_name)
+      printer = self.new(printer_name)
+      yield printer
+      printer.print
+    end
+
     def initialize(name)
       @name = name
       @commands = '\e@' # This is ESC/POS initialize command.
@@ -14,7 +20,7 @@ module POS
     end
 
     def print
-      send_to_printer
+      Open3.capture3('lp', '-d', @name, '-o', 'raw', stdin_data: commands)
     end
 
     # ESC/POS commands
@@ -72,10 +78,6 @@ module POS
     def add_command(command)
       @commands << command
       return
-    end
-
-    def send_to_printer
-      Open3.capture3('lp', '-d', @name, '-o', 'raw', stdin_data: commands)
     end
   end
 end
