@@ -14,12 +14,8 @@ module POS
       @lp_options = ['-d', name, '-o', 'raw', *lp_options]
     end
 
-    def commands
-      @commands.gsub(/'/, "'\"'\"'")
-    end
-
     def print
-      Open3.capture3('lp', *@lp_options, stdin_data: commands)
+      Open3.capture3('lp', *@lp_options, stdin_data: @commands)
     end
 
     # ESC/POS commands

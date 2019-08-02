@@ -2,7 +2,7 @@ require 'test/unit'
 require_relative '../../lib/pos/printer'
 
 class POS::Printer
-  attr_reader :name, :lp_options
+  attr_reader :name, :commands, :lp_options
 end
 
 class TestPrinter < Test::Unit::TestCase
