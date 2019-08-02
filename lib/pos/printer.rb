@@ -15,7 +15,7 @@ module POS
     end
 
     def print
-      Open3.capture3('lp', *@lp_options, stdin_data: @commands)
+      Open3.capture3('lp', *@lp_options, binmode: true, stdin_data: @commands)
     end
 
     # ESC/POS commands
