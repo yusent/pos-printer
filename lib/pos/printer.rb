@@ -10,7 +10,7 @@ module POS
 
     def initialize(name, lp_options = [])
       @name = name
-      @commands = '\e@' # This is ESC/POS initialize command.
+      @commands = "\e@" # This is ESC/POS initialize command.
       @lp_options = ['-d', name, '-o', 'raw', *lp_options]
     end
 
@@ -21,43 +21,43 @@ module POS
     # ESC/POS commands
 
     def align_center
-      add_command '\ea\1'
+      add_command "\ea\1"
     end
 
     def align_left
-      add_command '\ea\0'
+      add_command "\ea\0"
     end
 
     def align_right
-      add_command '\ea\2'
+      add_command "\ea\2"
     end
 
     def big_font
-      add_command '\eM\0'
+      add_command "\eM\0"
     end
 
     def cut
-      add_command '\em'
+      add_command "\em"
     end
 
     def double_size
-      add_command '\x1d!\x11'
+      add_command "\x1d!\x11"
     end
 
     def line_feed
-      add_command '\n'
+      add_command "\n"
     end
 
     def normal_size
-      add_command '\x1d!\0'
+      add_command "\x1d!\0"
     end
 
     def open_drawer
-      add_command '\x1bp\x00\x19\xff\x1bp\x01\x19\xff'
+      add_command "\x1bp\x00\x19\xff\x1bp\x01\x19\xff"
     end
 
     def print_logo
-      add_command '\x1cp\1\0'
+      add_command "\x1cp\1\0"
     end
 
     def qr_code(str)
@@ -66,17 +66,17 @@ module POS
       lsb = s % 256
       msb = s / 256
 
-      add_command '\x1B\x61\x01'
-      add_command "\\x1D\\x28\\x6B\\x03\\x00\\x31\\x43\\x#{'%02x' % qr_size}"
-      add_command '\x1D\x28\x6B\x03\x00\x31\x45\x33'
-      add_command "\\x1D\\x28\\x6B\\x#{'%02x' % lsb}"
-      add_command "\\x#{'%02x' % msb}\\x31\\x50\\x30"
+      add_command "\x1B\x61\x01"
+      add_command "\x1D\x28\x6B\x03\x00\x31\x43#{qr_size.chr}"
+      add_command "\x1D\x28\x6B\x03\x00\x31\x45\x33"
+      add_command "\x1D\x28\x6B#{lsb.chr}"
+      add_command "#{msb.chr}\x31\x50\x30"
       add_command str
-      add_command '\x1D\x28\x6B\x03\x00\x31\x51\x30'
+      add_command "\x1D\x28\x6B\x03\x00\x31\x51\x30"
     end
 
     def small_font
-      add_command '\eM\1'
+      add_command "\eM\1"
     end
 
     def text(str)
