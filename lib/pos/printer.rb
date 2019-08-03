@@ -44,8 +44,8 @@ module POS
       add_command "\x1d!\x11"
     end
 
-    def line_feed
-      add_command "\n"
+    def line_feed(n = 1)
+      add_command "\n" * n
     end
 
     def normal_size

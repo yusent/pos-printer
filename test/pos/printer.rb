@@ -52,6 +52,8 @@ class TestPrinter < Test::Unit::TestCase
   def test_line_feed
     @printer.line_feed
     assert_equal(@printer.commands, "\e@\n")
+    @printer.line_feed 3
+    assert_equal(@printer.commands, "\e@\n\n\n\n")
   end
 
   def test_normal_size
