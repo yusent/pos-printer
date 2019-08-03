@@ -88,4 +88,9 @@ class TestPrinter < Test::Unit::TestCase
     @printer.text 'some text'
     assert_equal(@printer.commands, "\e@some text")
   end
+
+  def test_text_line
+    @printer.text_line 'some text'
+    assert_equal(@printer.commands, "\e@some text\n")
+  end
 end

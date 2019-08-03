@@ -83,6 +83,11 @@ module POS
       add_command str
     end
 
+    def text_line(str)
+      add_command str
+      line_feed
+    end
+
     private
 
     def add_command(command)
