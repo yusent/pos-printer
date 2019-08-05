@@ -67,10 +67,11 @@ module POS
       msb = s / 256
 
       add_command "\x1B\x61\x01"
-      add_command "\x1D\x28\x6B\x03\x00\x31\x43#{qr_size.chr}"
+      add_command "\x1D\x28\x6B\x03\x00\x31\x43"
+      add_command qr_size.chr.force_encoding(Encoding::UTF_8)
       add_command "\x1D\x28\x6B\x03\x00\x31\x45\x33"
-      add_command "\x1D\x28\x6B#{lsb.chr}"
-      add_command "#{msb.chr}\x31\x50\x30"
+      add_command "\x1D\x28\x6B#{lsb.chr.force_encoding(Encoding::UTF_8)}"
+      add_command "#{msb.chr.force_encoding(Encoding::UTF_8)}\x31\x50\x30"
       add_command str
       add_command "\x1D\x28\x6B\x03\x00\x31\x51\x30"
     end
