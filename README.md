@@ -1,4 +1,4 @@
-[![Gem Version](https://badge.fury.io/rb/pos-printer.svg)](https://rubygems.org/gems/pos-printer])
+[![Gem Version](https://badge.fury.io/rb/pos-printer.svg)](https://rubygems.org/gems/pos-printer)
 [![Build Status](https://travis-ci.org/yusent/pos-printer.svg?branch=master)](https://travis-ci.org/yusent/pos-printer)
 
 # pos-printer
