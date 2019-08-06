@@ -13,7 +13,7 @@ class TestPrinter < Test::Unit::TestCase
   end
 
   def assert_commands_equal(str)
-    assert_equal(str, @printer.commands)
+    assert_equal(str.b, @printer.commands)
   end
 
   def test_initialize
@@ -98,5 +98,10 @@ class TestPrinter < Test::Unit::TestCase
   def test_text_line
     @printer.text_line 'some text'
     assert_commands_equal("\e@some text\n")
+  end
+
+  def test_text_with_spanish_characters
+    @printer.text "ÁÉÍÓÚÑáéíóúñ"
+    assert_commands_equal("\e@\xB5\x90\xD6\xE0\xE9\xA5\xA0\x82\xA1\xA2\xA3\xA4")
   end
 end

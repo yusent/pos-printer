@@ -10,7 +10,7 @@ module POS
 
     def initialize(name, lp_options = [])
       @name = name
-      @commands = "\e@" # This is ESC/POS initialize command.
+      @commands = "\e@".b # This is ESC/POS initialize command.
       @lp_options = ['-d', name, '-o', 'raw', *lp_options]
     end
 
@@ -67,11 +67,10 @@ module POS
       msb = s / 256
 
       add_command "\x1B\x61\x01"
-      add_command "\x1D\x28\x6B\x03\x00\x31\x43"
-      add_command qr_size.chr.force_encoding(Encoding::UTF_8)
+      add_command "\x1D\x28\x6B\x03\x00\x31\x43#{qr_size.chr}"
       add_command "\x1D\x28\x6B\x03\x00\x31\x45\x33"
-      add_command "\x1D\x28\x6B#{lsb.chr.force_encoding(Encoding::UTF_8)}"
-      add_command "#{msb.chr.force_encoding(Encoding::UTF_8)}\x31\x50\x30"
+      add_command "\x1D\x28\x6B#{lsb.chr}"
+      add_command "#{msb.chr}\x31\x50\x30"
       add_command str
       add_command "\x1D\x28\x6B\x03\x00\x31\x51\x30"
     end
@@ -92,8 +91,25 @@ module POS
     private
 
     def add_command(command)
-      @commands << command
+      @commands << replace_spanish_characters(command)
       return
+    end
+
+    def replace_spanish_characters(str)
+      str
+        .b
+        .gsub("Á".b, "\xB5".b)
+        .gsub("É".b, "\x90".b)
+        .gsub("Í".b, "\xD6".b)
+        .gsub("Ó".b, "\xE0".b)
+        .gsub("Ú".b, "\xE9".b)
+        .gsub("Ñ".b, "\xA5".b)
+        .gsub("á".b, "\xA0".b)
+        .gsub("é".b, "\x82".b)
+        .gsub("í".b, "\xA1".b)
+        .gsub("ó".b, "\xA2".b)
+        .gsub("ú".b, "\xA3".b)
+        .gsub("ñ".b, "\xA4".b)
     end
   end
 end
