@@ -19,6 +19,7 @@ module POS
     end
 
     # ESC/POS commands
+    # FMI: http://www.bixolon.com/upload/download/unified%20command%20manual_rev_1_01.pdf
 
     def align_center
       add_command "\ea\1"
@@ -96,6 +97,7 @@ module POS
     end
 
     def replace_spanish_characters(str)
+      # Codes from: http://www.bixolon.com/upload/download/srp-f310312_code%20pages_english_rev_1_00.pdf
       str
         .b
         .gsub("Á".b, "\xB5".b)
