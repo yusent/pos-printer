@@ -76,6 +76,10 @@ module POS
       add_command "\x1D\x28\x6B\x03\x00\x31\x51\x30"
     end
 
+    def select_character_code_table(chr_table)
+      add_command "\et#{get_chr_table_code(chr_table)}"
+    end
+
     def small_font
       add_command "\eM\1"
     end
@@ -94,6 +98,75 @@ module POS
     def add_command(command)
       @commands << replace_spanish_characters(command)
       return
+    end
+
+    def get_chr_table_code(chr_table_sym)
+      case chr_table_sym
+      when :usa
+        0
+      when :katakana
+        1 
+      when :multilingual
+        2
+      when :portuguese
+        3
+      when :canadian_french
+        4
+      when :nordic
+        5
+      when :latin_1
+        16
+      when :cyrillic_2
+        17
+      when :latin_2
+        18
+      when :euro
+        19
+      when :hebrew_dos_code
+        21
+      when :arabic
+        22
+      when :thai_42
+        23
+      when :greek
+        24
+      when :turkish
+        25
+      when :baltic
+        26
+      when :farsi
+        27
+      when :cyrillic
+        28
+      when :greek_2
+        29
+      when :baltic_2
+        30
+      when :thai_14
+        31
+      when :hebrew_new_code
+        33
+      when :thai_11
+        34
+      when :thai_18
+        35
+      when :cyrillic_3
+        36
+      when :turkish_2
+        37
+      when :greek_3
+        38
+      when :thai_16
+        39
+      when :arabic_2
+        40
+      when :vietnam
+        41
+      when :space
+        255
+      else
+        0
+      end.chr
     end
 
     def replace_spanish_characters(str)

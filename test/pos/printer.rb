@@ -85,6 +85,11 @@ class TestPrinter < Test::Unit::TestCase
       "\x1D\x28\x6B\x03\x00\x31\x51\x30")
   end
 
+  def test_select_character_code_table
+    @printer.select_character_code_table(:multilingual)
+    assert_commands_equal("\e@\et\x02")
+  end
+
   def test_small_font
     @printer.small_font
     assert_commands_equal("\e@\eM\1")
