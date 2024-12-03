@@ -61,6 +61,15 @@ module POS
       add_command "\x1cp\1\0"
     end
 
+    def barcode(str, dpi = 162, width = 3)
+      add_command "\x1D\x48\x00"
+      add_command "\x1B\x61\x01"
+      add_command "\x1D\x68#{dpi.chr}"
+      add_command "\x1D\x77#{width.chr}"
+      add_command "\x1D\x6B\x49#{str.size.chr}"
+      add_command str
+    end
+
     def qr_code(str)
       qr_size = 4
       s = str.size + 3
@@ -105,7 +114,7 @@ module POS
       when :usa
         0
       when :katakana
-        1 
+        1
       when :multilingual
         2
       when :portuguese
