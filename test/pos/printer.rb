@@ -75,6 +75,16 @@ class TestPrinter < Test::Unit::TestCase
     assert_commands_equal("\e@\x1cp\1\0")
   end
 
+  def test_barcode
+    @printer.barcode 'test'
+    assert_commands_equal("\e@\x1D\x48\x00"\
+      "\x1B\x61\x01"\
+      "\x1D\x68\xA2"\
+      "\x1D\x77\x03"\
+      "\x1D\x6B\x49\x04"\
+      'test')
+  end
+
   def test_qr_code
     @printer.qr_code 'test'
     assert_commands_equal("\e@\x1B\x61\x01"\
