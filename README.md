@@ -1,5 +1,4 @@
 [![Gem Version](https://badge.fury.io/rb/pos-printer.svg)](https://rubygems.org/gems/pos-printer)
-[![Build Status](https://travis-ci.org/yusent/pos-printer.svg?branch=master)](https://travis-ci.org/yusent/pos-printer)
 
 # pos-printer
 Ruby library for printing using ESC/POS (thermal) printers using CUPS.
